@@ -8,6 +8,8 @@ on:
 
 jobs:
   build:
+    env:
+      configuration: release
     runs-on: ubuntu-latest
 
     steps:
@@ -24,8 +26,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     # build the project
-    - name: Build
+    - name: Build  --configuration ${{ env.configuration }}
       run: dotnet build --no-restore
     # run tests
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --configuration ${{ env.configuration }}
